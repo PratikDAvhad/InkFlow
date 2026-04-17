@@ -147,13 +147,13 @@ The React proxy setting automatically forwards `/api` calls to port 5000.
 | Method | Endpoint       | Auth          | Description                   |
 |--------|----------------|---------------|-------------------------------|
 | GET    | `/`            | Public        | List + filter + paginate      |
-| GET    | `/my-posts`    | 🔒 Author     | Author's own posts            |
-| GET    | `/stats`       | 🔒 Admin      | Analytics + top posts         |
+| GET    | `/my-posts`    | 🔒 User     | Author's own posts            |
+| GET    | `/stats`       | 🔒 User      | Analytics + top posts         |
 | GET    | `/id/:id`      | Public        | Get post by MongoDB ID        |
 | GET    | `/:slug`       | Public        | Get post by slug              |
-| POST   | `/`            | 🔒 Author     | Create post                   |
-| PUT    | `/:id`         | 🔒 Owner      | Update post                   |
-| DELETE | `/:id`         | 🔒 Owner      | Delete post + comments        |
+| POST   | `/`            | 🔒 User     | Create post                   |
+| PUT    | `/:id`         | 🔒 User      | Update post                   |
+| DELETE | `/:id`         | 🔒 User      | Delete post + comments        |
 | POST   | `/:id/like`    | 🔒 User       | Toggle like                   |
 | POST   | `/:id/save`    | 🔒 User       | Toggle save to reading list   |
 
@@ -162,8 +162,8 @@ The React proxy setting automatically forwards `/api` calls to port 5000.
 |--------|-----------------|----------|-----------------------|
 | GET    | `/post/:postId` | Public   | Get post comments     |
 | POST   | `/`             | 🔒 User  | Add comment / reply   |
-| PUT    | `/:id`          | 🔒 Owner | Edit comment          |
-| DELETE | `/:id`          | 🔒 Owner | Delete comment        |
+| PUT    | `/:id`          | 🔒 User | Edit comment          |
+| DELETE | `/:id`          | 🔒 User | Delete comment        |
 
 ### Categories — `/api/categories`
 | Method | Endpoint | Auth     | Description   |
@@ -197,30 +197,3 @@ The React proxy setting automatically forwards `/api` calls to port 5000.
 | **Input Validation**     | express-validator on auth routes, Mongoose schema rules|
 
 ---
-
-## 🐛 Bugs Fixed vs Previous Version
-
-1. **Edit page broken** — Added dedicated `GET /api/posts/id/:id` route (fetches by `_id`, not slug)
-2. **Route ordering conflict** — Static routes (`/my-posts`, `/stats`) now defined before `/:slug`
-3. **Tags not saved** — Tags are now split server-side from comma-separated string
-4. **Save toggle broken** — Fixed ObjectId comparison using `indexOf` → `splice`
-5. **likeCount missing on list** — Added `.lean({ virtuals: true })` to all list queries
-6. **Navigation** — Replaced top navbar with persistent sidebar + breadcrumbs + tab bars
-7. **Theme** — Full light theme, no dark mode variables, clean card-based layout
-
----
-
-## ✨ Possible Improvements
-
-1. **Rich Text Editor** — TipTap or Quill instead of raw HTML textarea
-2. **Image Uploads** — Multer + Cloudinary for real cover photos
-3. **Email Notifications** — Nodemailer for comment alerts and password reset
-4. **Real-time Comments** — Socket.io for live updates
-5. **Redis Cache** — Cache popular posts and category counts
-6. **Full-text Search** — Upgrade to Algolia or Elasticsearch
-7. **Infinite Scroll** — Replace pagination with intersection observer
-8. **Post Scheduling** — Schedule future publish dates
-9. **Social Auth** — Google / GitHub OAuth via Passport.js
-10. **Docker** — docker-compose for one-command setup
-11. **Tests** — Jest + Supertest (backend), React Testing Library (frontend)
-12. **CI/CD** — GitHub Actions for automated lint + test + deploy
