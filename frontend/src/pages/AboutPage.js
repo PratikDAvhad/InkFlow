@@ -15,7 +15,7 @@ const stack = [
   { layer:"Backend",  tech:"Node.js, Express.js (MVC pattern)", color:"#68a063" },
   { layer:"Database", tech:"MongoDB with Mongoose ODM",         color:"#4db33d" },
   { layer:"Auth",     tech:"JWT + bcryptjs",                    color:"#f59e0b" },
-  { layer:"Security", tech:"Helmet, CORS, Rate Limiting",       color:"#ef4444" },
+  { layer:"Security", tech:" CORS, Rate Limiting",       color:"#ef4444" },
 ];
 
 export default function AboutPage() {
